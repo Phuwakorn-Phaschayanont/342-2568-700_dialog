@@ -11,7 +11,7 @@ class MyApp extends StatelessWidget {
       'วานิลลา',
       'ช็อกโกแลต',
       'สตรอเบอร์รี่',
-      'มิ้นท์ช็อกชิป',
+      'มิ้นท์ช็อกชิพ',
       'คุ้กกี้แอนด์ครีม',
       'กาแฟ',
       'มะม่วง',
@@ -35,7 +35,7 @@ class MyApp extends StatelessWidget {
       'ไอศกรีมหอมหวานกลิ่นวานิลลาธรรมชาติ เนื้อเนียนนุ่ม ทานง่าย เป็นรสคลาสสิกที่ทุกคนชื่นชอบ',
       'รสชาติเข้มข้นของช็อกโกแลตแท้ หวานขมกำลังดี เหมาะสำหรับสายช็อกโกแลตเลิฟเวอร์',
       'รสเปรี้ยวหวานสดชื่นจากสตรอเบอร์รี่แท้ มีกลิ่นหอมของผลไม้ธรรมชาติ ทานแล้วรู้สึกสดชื่น',
-      'ไอศกรีมมิ้นท์เย็นสดชื่นผสมช็อกโกแลตชิปกรุบกรอบ รสชาติแปลกใหม่ที่ลงตัว',
+      'ไอศกรีมมิ้นท์เย็นสดชื่นผสมช็อกโกแลตชิพกรุบกรอบ รสชาติแปลกใหม่ที่ลงตัว',
       'เนื้อไอศกรีมครีมหวานละมุนผสมกับชิ้นคุกกี้โอรีโอ้กรอบๆ เคี้ยวเพลินทุกคำ',
       'รสชาติหอมเข้มของกาแฟคั่วบดแท้ เหมาะสำหรับคนรักกาแฟที่อยากเพิ่มความหวานเย็น',
       'ไอศกรีมผลไม้รสเปรี้ยวหวานจากมะม่วงสุก เนื้อเนียน หอมกลิ่นมะม่วงแบบไทยๆ',
@@ -54,10 +54,10 @@ class MyApp extends StatelessWidget {
         fontFamily: 'Kanit',
       ),
       home: Scaffold(
-        appBar: AppBar(title: const Text('รายการรสไอศกรีมโปรด')),
+        appBar: AppBar(title: const Text('รายการไอศกรีมโปรด')),
         body: GridView.builder(
-          padding: const EdgeInsets.all(8.0),
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          padding: const EdgeInsets.all(8.0), // กำหนด Padding รอบๆ Grid
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount( // กำหนดให้เป็น Grid
             crossAxisCount: 2,
             childAspectRatio: 1.0,
             crossAxisSpacing: 8.0,
@@ -67,17 +67,26 @@ class MyApp extends StatelessWidget {
           itemBuilder: (context, index) {
             return Card(
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
+                crossAxisAlignment: CrossAxisAlignment.stretch, // กำหนดให้ยืดเต็มที่
                 children: [
                   Expanded(
-                    child: GestureDetector(
+                    child: InkWell(
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(8.0),
+                        child: Image.asset(
+                          image[index],
+                          fit: BoxFit.cover,
+                          width: double.infinity, // กำหนดให้กว้างเต็มที่
+                          height: double.infinity,
+                        ),
+                      ),
                       onTap: () {
                         showDialog(
                           context: context,
                           builder: (BuildContext context) {
                             return AlertDialog(
                               content: Column(
-                                mainAxisSize: MainAxisSize.min,
+                                mainAxisSize: MainAxisSize.min, // กำหนดให้ขนาดคอลัมน์เล็กที่สุด
                                 children: [
                                   ClipRRect(
                                     borderRadius: BorderRadius.circular(8.0),
@@ -110,15 +119,6 @@ class MyApp extends StatelessWidget {
                           },
                         );
                       },
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(8.0),
-                        child: Image.asset(
-                          image[index],
-                          fit: BoxFit.cover,
-                          width: double.infinity,
-                          height: double.infinity,
-                        ),
-                      ),
                     ),
                   ),
                   Padding(
